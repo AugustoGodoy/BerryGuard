@@ -1,0 +1,112 @@
+@use '@angular/material' as mat;
+
+// ─── Tema personalizado BerryGuard ───────────────────────────────────────────
+$berry-palette: mat.m2-define-palette(mat.$m2-deep-purple-palette, 700, 300, 900);
+$berry-accent:  mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+$berry-warn:    mat.m2-define-palette(mat.$m2-red-palette);
+
+$berry-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $berry-palette,
+    accent:  $berry-accent,
+    warn:    $berry-warn,
+  ),
+  typography: mat.m2-define-typography-config(
+    $font-family: 'Inter, sans-serif',
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($berry-theme);
+
+// ─── Reset e base ─────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #0f0f1a;
+  color: #e0e0e0;
+}
+
+// ─── Utilitários globais ──────────────────────────────────────────────────────
+.berry-page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.berry-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.berry-card {
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  }
+}
+
+.berry-value {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.berry-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.berry-icon {
+  font-size: 2rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  opacity: 0.8;
+}
+
+// ─── Chips de severidade ───────────────────────────────────────────────────────
+.chip-critical { background: #b71c1c !important; color: #fff !important; }
+.chip-high     { background: #e65100 !important; color: #fff !important; }
+.chip-medium   { background: #f9a825 !important; color: #000 !important; }
+.chip-low      { background: #2e7d32 !important; color: #fff !important; }
+
+// ─── Status de risco ───────────────────────────────────────────────────────────
+.risk-safe     { color: #66bb6a; }
+.risk-warning  { color: #ffa726; }
+.risk-danger   { color: #ef5350; }
+.risk-critical { color: #e53935; animation: pulse 1.2s infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+// ─── Chart container ──────────────────────────────────────────────────────────
+.chart-container {
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+// ─── Scrollbar ────────────────────────────────────────────────────────────────
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #4a4a6a; border-radius: 3px; }

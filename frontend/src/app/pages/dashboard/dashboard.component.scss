@@ -1,0 +1,404 @@
+// ── Layout ────────────────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  .title-icon { color: #ab47bc; }
+}
+
+.page-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+// ── Source badge ──────────────────────────────────────────────────────────────
+.source-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  mat-icon { font-size: 0.95rem; width: 0.95rem; height: 0.95rem; }
+
+  &.badge-live {
+    background: rgba(102, 187, 106, 0.15);
+    color: #66bb6a;
+    border: 1px solid rgba(102, 187, 106, 0.3);
+  }
+  &.badge-cache {
+    background: rgba(255, 167, 38, 0.15);
+    color: #ffa726;
+    border: 1px solid rgba(255, 167, 38, 0.3);
+  }
+  &.badge-fallback {
+    background: rgba(239, 83, 80, 0.15);
+    color: #ef5350;
+    border: 1px solid rgba(239, 83, 80, 0.3);
+  }
+}
+
+// ── Error / Loading ───────────────────────────────────────────────────────────
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 83, 80, 0.12);
+  border: 1px solid rgba(239, 83, 80, 0.4);
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: #ef9a9a;
+  margin-bottom: 20px;
+}
+
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+.skeleton-grid { margin-bottom: 24px; }
+
+.skeleton-card {
+  height: 100px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #1e1e30 25%, #2a2a45 50%, #1e1e30 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+// ── Climate Cards ─────────────────────────────────────────────────────────────
+.climate-card {
+  mat-card-content { padding: 20px; }
+}
+
+.card-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.card-hint {
+  margin: 2px 0 0;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.text-primary { color: #ce93d8; }
+.text-accent  { color: #42a5f5; }
+.text-danger  { color: #ef5350; }
+
+// Motivo do status de risco — exibido abaixo do label no card de status
+.risk-reason {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 160px;
+}
+
+// ── Stats strip ───────────────────────────────────────────────────────────────
+.stats-strip {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0 24px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  mat-icon { font-size: 1rem; width: 1rem; height: 1rem; }
+  strong { color: #fff; }
+
+  &.stat-pill-danger { border-color: rgba(239, 83, 80, 0.3); color: #ef9a9a; }
+  &.stat-pill-info   { border-color: rgba(66, 165, 245, 0.3); color: #90caf9; }
+
+  // Pills do índice de risco
+  &.score-low      { border-color: rgba(102,187,106,0.35); color: #a5d6a7; }
+  &.score-medium   { border-color: rgba(255,183,77,0.35);  color: #ffe082; }
+  &.score-high     { border-color: rgba(239,83,80,0.35);   color: #ef9a9a; }
+  &.score-critical { border-color: rgba(171,71,188,0.5);   color: #ce93d8; }
+
+  // Pills de horas de frio
+  &.cold-ideal   { border-color: rgba(66,165,245,0.5);  color: #90caf9; }
+  &.cold-ok      { border-color: rgba(66,165,245,0.3);  color: #b3d9f7; }
+  &.cold-pending { border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+}
+
+// ── Charts ────────────────────────────────────────────────────────────────────
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+}
+
+.chart-card {
+  mat-card-header { padding: 16px 16px 0; }
+  mat-card-title  { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+  mat-card-content { padding: 12px 16px 16px; }
+}
+
+// Wrapper relativo: permite sobrepor o placeholder ao canvas
+.chart-wrapper {
+  position: relative;
+}
+
+.chart-container {
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+.chart-doughnut {
+  height: 220px;
+}
+
+// Placeholder sobreposto — canvas continua no DOM (crítico para Chart.js)
+.chart-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(18, 18, 35, 0.85);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+
+  mat-icon { font-size: 2.4rem; width: 2.4rem; height: 2.4rem; opacity: 0.4; }
+  p { margin: 0; font-size: 0.84rem; text-align: center; }
+}
+
+// Badge "Agora: XX°C" no título dos gráficos de linha
+.chart-current-value {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+}
+
+// ── Recommendations ───────────────────────────────────────────────────────────
+.recommendations-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 16px;
+  mat-icon { color: #ffa726; }
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.rec-card {
+  border-radius: 12px;
+  padding: 16px;
+  border-left: 4px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 0.15s ease;
+
+  &:hover { transform: translateY(-2px); }
+
+  &.rec-critical {
+    border-left-color: #ef5350;
+    background: rgba(239, 83, 80, 0.06);
+    .rec-icon { color: #ef5350; }
+    .rec-priority-badge { background: rgba(239,83,80,0.2); color: #ef5350; }
+  }
+  &.rec-high {
+    border-left-color: #ffa726;
+    background: rgba(255, 167, 38, 0.06);
+    .rec-icon { color: #ffa726; }
+    .rec-priority-badge { background: rgba(255,167,38,0.2); color: #ffa726; }
+  }
+  &.rec-medium {
+    border-left-color: #42a5f5;
+    background: rgba(66, 165, 245, 0.06);
+    .rec-icon { color: #42a5f5; }
+    .rec-priority-badge { background: rgba(66,165,245,0.2); color: #42a5f5; }
+  }
+  &.rec-safe {
+    border-left-color: #66bb6a;
+    background: rgba(102, 187, 106, 0.06);
+    .rec-icon { color: #66bb6a; }
+    .rec-priority-badge { background: rgba(102,187,106,0.2); color: #66bb6a; }
+  }
+}
+
+.rec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.rec-icon { font-size: 1.6rem !important; width: 1.6rem !important; height: 1.6rem !important; }
+
+.rec-priority-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.06em;
+}
+
+.rec-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.rec-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.5;
+}
+
+// ── Alerts card ───────────────────────────────────────────────────────────────
+.alerts-card {
+  margin-bottom: 24px;
+  mat-card-header  { padding: 16px 16px 0; }
+  mat-card-title   { display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+  mat-card-content { padding: 12px 16px 16px; }
+}
+
+.view-all-link {
+  color: #ce93d8;
+  text-decoration: none;
+  font-size: 0.82rem;
+  &:hover { text-decoration: underline; }
+}
+
+.empty-alerts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  mat-icon { font-size: 2.5rem; width: 2.5rem; height: 2.5rem; }
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s;
+
+  .severity-chip {
+    grid-row: 1 / 3;
+    align-self: center;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .alert-info {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    strong { font-size: 0.88rem; color: #fff; }
+    small  { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+  }
+  .alert-message {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+    grid-column: 2;
+  }
+
+  // Badge de condição normalizada
+  .resolved-badge {
+    grid-column: 1 / -1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    background: rgba(102, 187, 106, 0.15);
+    border: 1px solid rgba(102, 187, 106, 0.35);
+    color: #66bb6a;
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // Quando resolvido: opacidade reduzida e borda verde
+  &.alert-resolved {
+    opacity: 0.65;
+    border-left-color: #66bb6a;
+    background: rgba(102, 187, 106, 0.04);
+  }
+}

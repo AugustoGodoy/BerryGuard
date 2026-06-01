@@ -1,0 +1,68 @@
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  .title-icon { color: #42a5f5; }
+}
+
+.page-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.loading-container,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px;
+  color: rgba(255, 255, 255, 0.4);
+
+  mat-icon { font-size: 3rem; width: 3rem; height: 3rem; }
+  p { margin: 0; }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.alerts-table {
+  width: 100%;
+  background: transparent !important;
+
+  th { color: rgba(255,255,255,0.6) !important; font-size: 0.8rem; font-weight: 600; }
+  td { color: rgba(255,255,255,0.85) !important; font-size: 0.85rem; }
+
+  .table-row:hover { background: rgba(255,255,255,0.04); }
+}
+
+.chip {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.message-cell {
+  max-width: 340px;
+  white-space: normal;
+  line-height: 1.4;
+  font-size: 0.8rem !important;
+  color: rgba(255,255,255,0.6) !important;
+}

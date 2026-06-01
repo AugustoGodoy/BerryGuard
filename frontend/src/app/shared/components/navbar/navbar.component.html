@@ -1,0 +1,22 @@
+<mat-toolbar class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-emoji">🍓</span>
+    <span class="brand-title">BerryGuard</span>
+    <span class="brand-subtitle">Monitoramento Climático</span>
+  </div>
+
+  <nav class="navbar-nav">
+    @for (item of navItems; track item.path) {
+      <a
+        mat-button
+        [routerLink]="item.path"
+        routerLinkActive="nav-active"
+        class="nav-link"
+        [matTooltip]="item.label"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span class="nav-label">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+</mat-toolbar>

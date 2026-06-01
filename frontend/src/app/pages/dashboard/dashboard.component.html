@@ -1,0 +1,311 @@
+<div class="berry-page">
+
+  <!-- Cabeçalho -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">
+        <mat-icon class="title-icon">dashboard</mat-icon>
+        Dashboard
+      </h1>
+      <p class="page-subtitle">
+        {{ config()?.location_name ?? 'Carregando localização...' }}
+      </p>
+    </div>
+    <div class="header-actions">
+      @if (weather()) {
+        <span class="source-badge"
+          [class.badge-cache]="weather()!.from_cache && !weather()!.fallback"
+          [class.badge-fallback]="weather()!.fallback"
+          [class.badge-live]="!weather()!.from_cache">
+          <mat-icon>
+            {{ weather()!.fallback ? 'warning' : weather()!.from_cache ? 'cached' : 'cloud_download' }}
+          </mat-icon>
+          {{ weather()!.fallback ? 'Dados Desatualizados' : weather()!.from_cache ? 'Redis Cache' : 'Tempo Real' }}
+        </span>
+      }
+      <button mat-raised-button color="primary"
+        (click)="onManualRefresh()"
+        [disabled]="loading()"
+        matTooltip="Consultar Open-Meteo agora">
+        @if (loading()) {
+          <mat-spinner diameter="18" style="display:inline-block;margin-right:6px"></mat-spinner>
+        } @else {
+          <mat-icon>refresh</mat-icon>
+        }
+        Atualizar Dados
+      </button>
+    </div>
+  </div>
+
+  <!-- Erro -->
+  @if (error()) {
+    <div class="error-banner">
+      <mat-icon>error_outline</mat-icon>
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Skeleton loading (primeira carga) -->
+  @if (loading() && !weather()) {
+    <section class="berry-grid skeleton-grid">
+      @for (i of [1,2,3,4]; track i) {
+        <div class="skeleton-card"></div>
+      }
+    </section>
+  }
+
+  <!-- Cards de clima -->
+  @if (weather(); as w) {
+    <section class="berry-grid">
+
+      <mat-card class="berry-card climate-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Temperatura</p>
+              <p class="berry-value" [class]="w.temperature < 10 ? 'text-danger' : w.temperature > 30 ? 'text-danger' : 'text-primary'">
+                {{ w.temperature | number:'1.1-1' }}°C
+              </p>
+              <p class="card-hint">Ideal: 15°C – 28°C</p>
+            </div>
+            <mat-icon class="berry-icon" color="warn">thermostat</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="berry-card climate-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Umidade Relativa</p>
+              <p class="berry-value" [class]="w.humidity > 80 || w.humidity < 60 ? 'text-danger' : 'text-accent'">
+                {{ w.humidity | number:'1.0-0' }}%
+              </p>
+              <p class="card-hint">Ideal: 60% – 80%</p>
+            </div>
+            <mat-icon class="berry-icon" style="color:#42a5f5">water_drop</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="berry-card climate-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Precipitação</p>
+              <p class="berry-value" [class]="w.precipitation > 10 ? 'text-danger' : 'text-accent'">
+                {{ w.precipitation | number:'1.1-1' }} mm
+              </p>
+              <p class="card-hint">Limite: ≤ 10 mm</p>
+            </div>
+            <mat-icon class="berry-icon" style="color:#29b6f6">grain</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="berry-card climate-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Horas de Luz</p>
+              <p class="berry-value" [class]="w.sunshine_hours > 0 && w.sunshine_hours < 4 ? 'text-danger' : 'text-primary'">
+                {{ w.sunshine_hours | number:'1.1-1' }}h
+              </p>
+              <p class="card-hint">Ideal: ≥ 4 h/dia</p>
+            </div>
+            <mat-icon class="berry-icon" style="color:#ffa726">wb_sunny</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="berry-card climate-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Velocidade do Vento</p>
+              <p class="berry-value" [class]="w.wind_speed > 25 ? 'text-danger' : 'text-primary'">
+                {{ w.wind_speed | number:'1.1-1' }} km/h
+              </p>
+              <p class="card-hint">Limite: ≤ 25 km/h</p>
+            </div>
+            <mat-icon class="berry-icon" style="color:#ab47bc">air</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="berry-card climate-card risk-card">
+        <mat-card-content>
+          <div class="card-row">
+            <div>
+              <p class="berry-label">Status da Plantação</p>
+              <p class="berry-value" [class]="riskLabel()!.css">{{ riskLabel()!.text }}</p>
+              @if (riskReason()) {
+                <p class="risk-reason">{{ riskReason() }}</p>
+              }
+            </div>
+            <mat-icon class="berry-icon" [class]="riskLabel()!.css">{{ riskLabel()!.icon }}</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </section>
+
+    <!-- Stats strip -->
+    @if (stats(); as s) {
+      <div class="stats-strip">
+        <div class="stat-pill">
+          <mat-icon>notifications</mat-icon>
+          <span><strong>{{ s.total_alerts }}</strong> alertas totais</span>
+        </div>
+        <div class="stat-pill stat-pill-danger">
+          <mat-icon>crisis_alert</mat-icon>
+          <span><strong>{{ s.critical_alerts }}</strong> críticos</span>
+        </div>
+        <div class="stat-pill" [class]="riskScoreInfo().css">
+          <mat-icon>speed</mat-icon>
+          <span>Risco: <strong>{{ riskScore() }}/100</strong> — {{ riskScoreInfo().label }}</span>
+        </div>
+        <div class="stat-pill stat-pill-info">
+          <mat-icon>schedule</mat-icon>
+          <span>Atualizado às {{ formatDate(w.timestamp) }}</span>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Gráficos de Tendência — canvas SEMPRE no DOM (nunca em @if/@else) -->
+  <section class="charts-section">
+    <mat-card class="berry-card chart-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="warn">thermostat</mat-icon>
+          Temperatura (°C)
+          @if (weather()) {
+            <span class="chart-current-value">Agora: {{ weather()!.temperature | number:'1.1-1' }}°C</span>
+          }
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Wrapper relativo: canvas sempre presente, placeholder sobreposto via CSS -->
+        <div class="chart-wrapper">
+          <div class="chart-container"><canvas #tempChart></canvas></div>
+          @if (!hasChartData()) {
+            <div class="chart-overlay">
+              <mat-icon>show_chart</mat-icon>
+              <p>Clique em "Atualizar Dados" para ver o histórico</p>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="berry-card chart-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon style="color:#42a5f5">water_drop</mat-icon>
+          Umidade (%)
+          @if (weather()) {
+            <span class="chart-current-value">Agora: {{ weather()!.humidity | number:'1.0-0' }}%</span>
+          }
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-wrapper">
+          <div class="chart-container"><canvas #humChart></canvas></div>
+          @if (!hasChartData()) {
+            <div class="chart-overlay">
+              <mat-icon>water_drop</mat-icon>
+              <p>Clique em "Atualizar Dados" para ver o histórico</p>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Gráficos de Alertas -->
+  <section class="charts-section">
+    <mat-card class="berry-card chart-card">
+      <mat-card-header>
+        <mat-card-title><mat-icon style="color:#ab47bc">donut_large</mat-icon> Distribuição de Alertas</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-container chart-doughnut"><canvas #distChart></canvas></div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="berry-card chart-card">
+      <mat-card-header>
+        <mat-card-title><mat-icon style="color:#ffa726">bar_chart</mat-icon> Alertas por Dia (7 dias)</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-container"><canvas #timelineChart></canvas></div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Recomendações -->
+  @if (weather() && recommendations().length > 0) {
+    <section class="recommendations-section">
+      <h2 class="section-title">
+        <mat-icon>lightbulb</mat-icon>
+        Recomendações para o Produtor
+      </h2>
+      <div class="recommendations-grid">
+        @for (rec of recommendations(); track rec.title) {
+          <div class="rec-card" [class]="recClass(rec.priority)">
+            <div class="rec-header">
+              <mat-icon class="rec-icon">{{ rec.icon }}</mat-icon>
+              <span class="rec-priority-badge">{{ rec.priority | uppercase }}</span>
+            </div>
+            <h3 class="rec-title">{{ rec.title }}</h3>
+            <p class="rec-text">{{ rec.text }}</p>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Alertas Recentes -->
+  <mat-card class="berry-card alerts-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon color="warn">notifications_active</mat-icon>
+        Alertas Recentes
+      </mat-card-title>
+      <mat-card-subtitle>
+        Registros históricos de eventos detectados pelo monitoramento ·
+        <a routerLink="/history" class="view-all-link">Ver histórico completo →</a>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      @if (recentAlerts().length === 0) {
+        <div class="empty-alerts">
+          <mat-icon>check_circle_outline</mat-icon>
+          <p>Nenhum alerta registrado. Clique em <strong>Atualizar Dados</strong> para consultar o clima.</p>
+        </div>
+      } @else {
+        <div class="alert-list">
+          @for (alert of recentAlerts(); track alert.id) {
+            <div class="alert-item" [class.alert-resolved]="isAlertResolved(alert)">
+              <span [class]="severityClass(alert.severity)" class="severity-chip mat-chip">
+                {{ alert.severity }}
+              </span>
+              <div class="alert-info">
+                <strong>{{ alert.type }}</strong>
+                <small>{{ formatDate(alert.timestamp) }}</small>
+              </div>
+              <p class="alert-message">{{ alert.message }}</p>
+              @if (isAlertResolved(alert)) {
+                <span class="resolved-badge">
+                  <mat-icon>check_circle</mat-icon> Condição normalizada
+                </span>
+              }
+            </div>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+</div>

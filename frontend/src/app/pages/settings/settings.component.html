@@ -1,0 +1,151 @@
+<div class="settings-container">
+  <div class="page-header">
+    <h1>
+      <mat-icon>tune</mat-icon>
+      Configurações
+    </h1>
+    <p>Ajuste os parâmetros de monitoramento e a localização</p>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-wrapper">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- Localização -->
+      <mat-card class="settings-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>location_on</mat-icon>
+          <mat-card-title>Localização</mat-card-title>
+          <mat-card-subtitle>Defina o local monitorado</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+
+          <!-- Campo com autocomplete de cidade -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome da localização</mat-label>
+            <input
+              matInput
+              formControlName="location_name"
+              placeholder="Ex.: Atibaia, São Paulo…"
+              [matAutocomplete]="auto"
+              autocomplete="off"
+            />
+            @if (searchingCity()) {
+              <mat-spinner matSuffix diameter="18" style="margin-right:8px"></mat-spinner>
+            } @else {
+              <mat-icon matSuffix>search</mat-icon>
+            }
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayCity"
+              (optionSelected)="onCitySelected($event)"
+            >
+              @for (city of citySuggestions(); track city.display) {
+                <mat-option [value]="city">
+                  <mat-icon style="font-size:16px;vertical-align:middle">location_on</mat-icon>
+                  {{ city.display }}
+                </mat-option>
+              }
+            </mat-autocomplete>
+            @if (form.get('location_name')?.hasError('required')) {
+              <mat-error>Nome da localização é obrigatório</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="row-fields">
+            <mat-form-field appearance="outline">
+              <mat-label>Latitude</mat-label>
+              <input matInput type="number" formControlName="latitude" step="0.0001" />
+              <mat-hint>Preenchido automaticamente ao selecionar cidade</mat-hint>
+              @if (form.get('latitude')?.hasError('required')) {
+                <mat-error>Latitude é obrigatória</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Longitude</mat-label>
+              <input matInput type="number" formControlName="longitude" step="0.0001" />
+              <mat-hint>Preenchido automaticamente ao selecionar cidade</mat-hint>
+              @if (form.get('longitude')?.hasError('required')) {
+                <mat-error>Longitude é obrigatória</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Alertas -->
+      <mat-card class="settings-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>notifications_active</mat-icon>
+          <mat-card-title>Limites de Alerta</mat-card-title>
+          <mat-card-subtitle>Defina quando os alertas devem ser acionados</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div class="row-fields">
+            <mat-form-field appearance="outline">
+              <mat-label>Temperatura mínima (°C)</mat-label>
+              <input matInput type="number" formControlName="min_temperature" step="0.1" />
+              <mat-icon matSuffix>thermostat</mat-icon>
+              <mat-hint>Abaixo disto, gera alerta de geada</mat-hint>
+              @if (form.get('min_temperature')?.hasError('required')) {
+                <mat-error>Temperatura mínima é obrigatória</mat-error>
+              }
+              @if (form.get('min_temperature')?.hasError('min') || form.get('min_temperature')?.hasError('max')) {
+                <mat-error>Valor entre -20 °C e 30 °C</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Umidade máxima (%)</mat-label>
+              <input matInput type="number" formControlName="max_humidity" step="1" />
+              <mat-icon matSuffix>water_drop</mat-icon>
+              <mat-hint>Acima disto, gera alerta de umidade</mat-hint>
+              @if (form.get('max_humidity')?.hasError('required')) {
+                <mat-error>Umidade máxima é obrigatória</mat-error>
+              }
+              @if (form.get('max_humidity')?.hasError('min') || form.get('max_humidity')?.hasError('max')) {
+                <mat-error>Valor entre 0% e 100%</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Configuração atual -->
+      @if (currentConfig()) {
+        <mat-card class="settings-card info-card">
+          <mat-card-content>
+            <p><mat-icon>info</mat-icon> <strong>Configuração atual:</strong>
+              {{ currentConfig()!.location_name }}
+              ({{ currentConfig()!.latitude | number:'1.4-4' }},
+              {{ currentConfig()!.longitude | number:'1.4-4' }}) —
+              Alerta abaixo de {{ currentConfig()!.min_temperature }}°C |
+              Alerta acima de {{ currentConfig()!.max_humidity }}% umidade
+            </p>
+          </mat-card-content>
+        </mat-card>
+      }
+
+      <!-- Botões -->
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="onReset()" [disabled]="saving()">
+          <mat-icon>restore</mat-icon> Restaurar
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || saving()">
+          @if (saving()) {
+            <mat-spinner diameter="20" style="display:inline-block;margin-right:8px"></mat-spinner>
+          } @else {
+            <mat-icon>save</mat-icon>
+          }
+          Salvar Configurações
+        </button>
+      </div>
+    </form>
+  }
+</div>
