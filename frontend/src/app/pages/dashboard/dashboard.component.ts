@@ -343,13 +343,26 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     this.distChart = new Chart(this.distChartRef.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: ['Geada', 'Congelamento', 'Umidade Excessiva'],
-        datasets: [{ data: [0, 0, 0], backgroundColor: ['#42a5f5', '#7e57c2', '#ef5350'], borderColor: 'rgba(255,255,255,0.08)', borderWidth: 2 }],
+        labels: [
+          'Geada Crítica', 'Geada', 'Temp. Baixa',
+          'Calor Excessivo', 'Umidade Elevada', 'Umidade Baixa',
+          'Vento Forte', 'Excesso de Chuva', 'Baixa Luminosidade', 'Obs. Frio',
+        ],
+        datasets: [{
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          backgroundColor: [
+            '#ef5350', '#ff7043', '#ffa726',
+            '#ffca28', '#ab47bc', '#42a5f5',
+            '#26c6da', '#66bb6a', '#8d6e63', '#78909c',
+          ],
+          borderColor: 'rgba(255,255,255,0.08)',
+          borderWidth: 2,
+        }],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#ccc', padding: 12, font: { size: 11 } } } },
+        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#ccc', padding: 10, font: { size: 10 } } } },
       } as any,
     });
 
@@ -389,9 +402,31 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private updateDistributionChart(alerts: Alert[]): void {
     if (!this.distChart) return;
-    const counts = { GEADA: 0, CONGELAMENTO: 0, UMIDADE_EXCESSIVA: 0 };
-    alerts.forEach((a) => { if (a.type in counts) (counts as any)[a.type]++; });
-    this.distChart.data.datasets[0].data = [counts.GEADA, counts.CONGELAMENTO, counts.UMIDADE_EXCESSIVA];
+    const counts: Record<string, number> = {
+      GEADA_CRITICA:       0,
+      GEADA:               0,
+      TEMPERATURA_BAIXA:   0,
+      CALOR_EXCESSIVO:     0,
+      UMIDADE_ELEVADA:     0,
+      UMIDADE_BAIXA:       0,
+      VENTO_FORTE:         0,
+      EXCESSO_CHUVA:       0,
+      BAIXA_LUMINOSIDADE:  0,
+      OBS_FRIO:            0,
+    };
+    alerts.forEach((a) => { if (a.type in counts) counts[a.type]++; });
+    this.distChart.data.datasets[0].data = [
+      counts['GEADA_CRITICA'],
+      counts['GEADA'],
+      counts['TEMPERATURA_BAIXA'],
+      counts['CALOR_EXCESSIVO'],
+      counts['UMIDADE_ELEVADA'],
+      counts['UMIDADE_BAIXA'],
+      counts['VENTO_FORTE'],
+      counts['EXCESSO_CHUVA'],
+      counts['BAIXA_LUMINOSIDADE'],
+      counts['OBS_FRIO'],
+    ];
     this.distChart.update();
   }
 
