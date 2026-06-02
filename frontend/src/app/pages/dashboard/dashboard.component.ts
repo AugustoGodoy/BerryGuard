@@ -398,7 +398,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#ccc', padding: 10, font: { size: 10 } } } },
+        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#ccc', padding: 14, font: { size: 11 }, boxWidth: 12 } } },
       } as any,
     });
 
