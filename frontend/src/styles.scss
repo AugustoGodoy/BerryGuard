@@ -52,13 +52,13 @@ body {
 .berry-card {
   border-radius: 14px !important;
   background: #ffffff !important;
-  border: 1px solid rgba(46, 125, 50, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(46, 125, 50, 0.08) !important;
+  border: 1px solid #E0E8DE !important;
+  box-shadow: 0 4px 16px rgba(46, 125, 50, 0.08) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(46, 125, 50, 0.14) !important;
+    box-shadow: 0 8px 28px rgba(46, 125, 50, 0.13) !important;
   }
 }
 
