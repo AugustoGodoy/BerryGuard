@@ -140,7 +140,11 @@
               <p class="berry-label">Status da Plantação</p>
               <p class="berry-value" [class]="riskLabel()!.css">{{ riskLabel()!.text }}</p>
               @if (riskReason()) {
-                <p class="risk-reason">{{ riskReason() }}</p>
+                <div class="risk-reason">
+                  <span class="risk-reason-line">{{ riskReason()!.atual }}</span>
+                  <span class="risk-reason-line">{{ riskReason()!.ideal }}</span>
+                  <span class="risk-reason-line risk-reason-diff">{{ riskReason()!.diff }}</span>
+                </div>
               }
             </div>
             <mat-icon class="berry-icon" [class]="riskLabel()!.css">{{ riskLabel()!.icon }}</mat-icon>

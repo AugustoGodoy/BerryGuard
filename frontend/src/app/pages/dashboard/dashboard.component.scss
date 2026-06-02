@@ -112,11 +112,21 @@
 
 // Motivo do status de risco — exibido abaixo do label no card de status
 .risk-reason {
-  margin: 4px 0 0;
-  font-size: 0.75rem;
-  line-height: 1.3;
-  color: rgba(255, 255, 255, 0.55);
-  max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 6px 0 0;
+}
+
+.risk-reason-line {
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.risk-reason-diff {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 // ── Stats strip ───────────────────────────────────────────────────────────────

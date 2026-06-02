@@ -129,20 +129,56 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     const t = w.temperature;
     const h = w.humidity;
     const wind = w.wind_speed;
+    const precip = w.precipitation ?? 0;
+
     if (t <= this.TEMP_CONGEL)
-      return `Temperatura ${t.toFixed(1)}°C — congelamento crítico (≤ 0°C)`;
+      return {
+        atual:  `Temperatura atual: ${t.toFixed(1)}°C`,
+        ideal:  'Temperatura ideal: 15°C – 28°C',
+        diff:   `${Math.abs(t - this.TEMP_IDEAL_MIN).toFixed(1)}°C abaixo do ideal`,
+      };
     if (t < this.TEMP_GEADA_MIN)
-      return `Temperatura ${t.toFixed(1)}°C — faixa de risco de geada (0°C a 10°C)`;
+      return {
+        atual:  `Temperatura atual: ${t.toFixed(1)}°C`,
+        ideal:  'Temperatura ideal: 15°C – 28°C',
+        diff:   `${(this.TEMP_IDEAL_MIN - t).toFixed(1)}°C abaixo do ideal`,
+      };
     if (t > this.TEMP_CALOR_MAX)
-      return `Temperatura ${t.toFixed(1)}°C acima do limite (30°C)`;
+      return {
+        atual:  `Temperatura atual: ${t.toFixed(1)}°C`,
+        ideal:  'Temperatura ideal: 15°C – 28°C',
+        diff:   `${(t - this.TEMP_IDEAL_MAX).toFixed(1)}°C acima do ideal`,
+      };
     if (t < this.TEMP_IDEAL_MIN)
-      return `Temperatura ${t.toFixed(1)}°C abaixo do ideal (15°C)`;
+      return {
+        atual:  `Temperatura atual: ${t.toFixed(1)}°C`,
+        ideal:  'Temperatura ideal: 15°C – 28°C',
+        diff:   `${(this.TEMP_IDEAL_MIN - t).toFixed(1)}°C abaixo do ideal`,
+      };
     if (h > this.HUM_IDEAL_MAX)
-      return `Umidade ${h.toFixed(0)}% acima do limite ideal (80%)`;
+      return {
+        atual:  `Umidade atual: ${h.toFixed(0)}%`,
+        ideal:  'Umidade ideal: 60% – 80%',
+        diff:   `${(h - this.HUM_IDEAL_MAX).toFixed(0)}% acima do ideal`,
+      };
     if (h < this.HUM_IDEAL_MIN)
-      return `Umidade ${h.toFixed(0)}% abaixo do limite ideal (60%)`;
+      return {
+        atual:  `Umidade atual: ${h.toFixed(0)}%`,
+        ideal:  'Umidade ideal: 60% – 80%',
+        diff:   `${(this.HUM_IDEAL_MIN - h).toFixed(0)}% abaixo do ideal`,
+      };
     if (wind > this.WIND_MAX)
-      return `Vento ${wind.toFixed(1)} km/h acima do limite seguro (25 km/h)`;
+      return {
+        atual:  `Vento atual: ${wind.toFixed(1)} km/h`,
+        ideal:  'Limite seguro: ≤ 25 km/h',
+        diff:   `${(wind - this.WIND_MAX).toFixed(1)} km/h acima do limite`,
+      };
+    if (precip > 10)
+      return {
+        atual:  `Precipitação atual: ${precip.toFixed(1)} mm`,
+        ideal:  'Limite seguro: ≤ 10 mm',
+        diff:   `${(precip - 10).toFixed(1)} mm acima do limite`,
+      };
     return null;
   });
 
