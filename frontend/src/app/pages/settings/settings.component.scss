@@ -14,13 +14,13 @@
     font-size: 1.6rem;
     font-weight: 700;
     margin: 0;
-    color: #fff;
-    mat-icon { color: #ffca28; }
+    color: #1B2A1C;
+    mat-icon { color: #2E7D32; }
   }
 
   p {
     margin: 8px 0 0;
-    color: rgba(255,255,255,0.5);
+    color: rgba(27, 42, 28, 0.55);
     font-size: 0.9rem;
   }
 }
@@ -35,7 +35,7 @@
   margin-bottom: 20px;
 
   mat-card-header { padding: 16px 16px 0; }
-  mat-card-title  { display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+  mat-card-title  { display: flex; align-items: center; gap: 8px; font-size: 1rem; color: #1B2A1C; }
   mat-card-content { padding: 20px 16px 16px; }
 }
 
@@ -47,7 +47,7 @@
       gap: 8px;
       margin: 0;
       font-size: 0.9rem;
-      color: rgba(255,255,255,0.7);
+      color: rgba(27, 42, 28, 0.7);
     }
   }
 }

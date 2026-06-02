@@ -68,7 +68,7 @@
               </p>
               <p class="card-hint">Ideal: 15°C – 28°C</p>
             </div>
-            <mat-icon class="berry-icon" color="warn">thermostat</mat-icon>
+            <mat-icon class="berry-icon" style="color:#D32F2F">thermostat</mat-icon>
           </div>
         </mat-card-content>
       </mat-card>
@@ -83,7 +83,7 @@
               </p>
               <p class="card-hint">Ideal: 60% – 80%</p>
             </div>
-            <mat-icon class="berry-icon" style="color:#42a5f5">water_drop</mat-icon>
+            <mat-icon class="berry-icon" style="color:#1565C0">water_drop</mat-icon>
           </div>
         </mat-card-content>
       </mat-card>
@@ -98,7 +98,7 @@
               </p>
               <p class="card-hint">Limite: ≤ 10 mm</p>
             </div>
-            <mat-icon class="berry-icon" style="color:#29b6f6">grain</mat-icon>
+            <mat-icon class="berry-icon" style="color:#1565C0">grain</mat-icon>
           </div>
         </mat-card-content>
       </mat-card>
@@ -113,7 +113,7 @@
               </p>
               <p class="card-hint">Ideal: ≥ 4 h/dia</p>
             </div>
-            <mat-icon class="berry-icon" style="color:#ffa726">wb_sunny</mat-icon>
+            <mat-icon class="berry-icon" style="color:#E65100">wb_sunny</mat-icon>
           </div>
         </mat-card-content>
       </mat-card>
@@ -128,7 +128,7 @@
               </p>
               <p class="card-hint">Limite: ≤ 25 km/h</p>
             </div>
-            <mat-icon class="berry-icon" style="color:#ab47bc">air</mat-icon>
+            <mat-icon class="berry-icon" style="color:#1B5E20">air</mat-icon>
           </div>
         </mat-card-content>
       </mat-card>
@@ -206,7 +206,7 @@
     <mat-card class="berry-card chart-card">
       <mat-card-header>
         <mat-card-title>
-          <mat-icon style="color:#42a5f5">water_drop</mat-icon>
+          <mat-icon style="color:#1565C0">water_drop</mat-icon>
           Umidade (%)
           @if (weather()) {
             <span class="chart-current-value">Agora: {{ weather()!.humidity | number:'1.0-0' }}%</span>
@@ -231,7 +231,7 @@
   <section class="charts-section">
     <mat-card class="berry-card chart-card">
       <mat-card-header>
-        <mat-card-title><mat-icon style="color:#ab47bc">donut_large</mat-icon> Distribuição de Alertas</mat-card-title>
+        <mat-card-title><mat-icon style="color:#2E7D32">donut_large</mat-icon> Distribuição de Alertas</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div class="chart-container chart-doughnut"><canvas #distChart></canvas></div>
@@ -240,7 +240,7 @@
 
     <mat-card class="berry-card chart-card">
       <mat-card-header>
-        <mat-card-title><mat-icon style="color:#ffa726">bar_chart</mat-icon> Alertas por Dia (7 dias)</mat-card-title>
+        <mat-card-title><mat-icon style="color:#E65100">bar_chart</mat-icon> Alertas por Dia (7 dias)</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <div class="chart-container"><canvas #timelineChart></canvas></div>

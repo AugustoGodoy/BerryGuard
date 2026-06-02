@@ -354,8 +354,8 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   // ─── Charts ───────────────────────────────────────────────────────────────
   private initCharts(): void {
     const axisOpts = {
-      x: { ticks: { color: '#aaa', maxTicksLimit: 6 }, grid: { color: 'rgba(255,255,255,0.05)' } },
-      y: { ticks: { color: '#aaa' },                   grid: { color: 'rgba(255,255,255,0.05)' } },
+      x: { ticks: { color: '#666', maxTicksLimit: 6 }, grid: { color: 'rgba(0,0,0,0.06)' } },
+      y: { ticks: { color: '#666' },                   grid: { color: 'rgba(0,0,0,0.06)' } },
     };
     const lineOpts = {
       responsive: true,
@@ -366,13 +366,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.tempChart = new Chart(this.tempChartRef.nativeElement, {
       type: 'line',
-      data: { labels: [], datasets: [{ label: 'Temp (°C)', data: [], borderColor: '#ef5350', backgroundColor: 'rgba(239,83,80,0.15)', fill: true, tension: 0.4, pointRadius: 3 }] },
+      data: { labels: [], datasets: [{ label: 'Temp (°C)', data: [], borderColor: '#D32F2F', backgroundColor: 'rgba(211,47,47,0.1)', fill: true, tension: 0.4, pointRadius: 3 }] },
       options: lineOpts as any,
     });
 
     this.humChart = new Chart(this.humChartRef.nativeElement, {
       type: 'line',
-      data: { labels: [], datasets: [{ label: 'Umidade (%)', data: [], borderColor: '#42a5f5', backgroundColor: 'rgba(66,165,245,0.15)', fill: true, tension: 0.4, pointRadius: 3 }] },
+      data: { labels: [], datasets: [{ label: 'Umidade (%)', data: [], borderColor: '#1565C0', backgroundColor: 'rgba(21,101,192,0.1)', fill: true, tension: 0.4, pointRadius: 3 }] },
       options: lineOpts as any,
     });
 
@@ -385,13 +385,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#ccc', padding: 14, font: { size: 11 }, boxWidth: 12 } } },
+        plugins: { legend: { display: true, position: 'bottom', labels: { color: '#444', padding: 14, font: { size: 11 }, boxWidth: 12 } } },
       } as any,
     });
 
     this.timelineChart = new Chart(this.timelineChartRef.nativeElement, {
       type: 'bar',
-      data: { labels: [], datasets: [{ label: 'Alertas', data: [], backgroundColor: 'rgba(171,71,188,0.6)', borderColor: '#ab47bc', borderWidth: 1, borderRadius: 4 }] },
+      data: { labels: [], datasets: [{ label: 'Alertas', data: [], backgroundColor: 'rgba(46,125,50,0.55)', borderColor: '#2E7D32', borderWidth: 1, borderRadius: 4 }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: axisOpts } as any,
     });
   }

@@ -1,6 +1,6 @@
 .navbar {
-  background: linear-gradient(90deg, #12002f 0%, #1a0050 100%) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(90deg, #1B5E20 0%, #2E7D32 100%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -8,6 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 8px rgba(27, 94, 32, 0.3);
 }
 
 .navbar-brand {
@@ -29,7 +30,7 @@
 
   .brand-subtitle {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     margin-left: 4px;
 
     @media (max-width: 600px) {
@@ -47,18 +48,19 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   border-radius: 8px !important;
   transition: background 0.2s, color 0.2s !important;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.12) !important;
     color: #fff !important;
   }
 
   &.nav-active {
-    background: rgba(233, 30, 140, 0.2) !important;
-    color: #f48fb1 !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #fff !important;
+    font-weight: 600;
   }
 
   .nav-label {
