@@ -144,23 +144,23 @@
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.8rem;
-  background: rgba(46, 125, 50, 0.06);
-  border: 1px solid rgba(46, 125, 50, 0.15);
-  color: rgba(27, 42, 28, 0.75);
+  background: #EEF5EB;
+  border: 1px solid #B0C4AB;
+  color: #1B2A1C;
   mat-icon { font-size: 1rem; width: 1rem; height: 1rem; }
   strong { color: #1B2A1C; }
 
-  &.stat-pill-danger { background: rgba(198,40,40,0.06); border-color: rgba(198,40,40,0.2); color: #C62828; }
-  &.stat-pill-info   { background: rgba(21,101,192,0.06); border-color: rgba(21,101,192,0.2); color: #1565C0; }
+  &.stat-pill-danger { background: #FDECEA; border-color: #F5A8A8; color: #C62828; }
+  &.stat-pill-info   { background: #E3EEF9; border-color: #9BBCDE; color: #1565C0; }
 
-  &.score-low      { border-color: rgba(46,125,50,0.3);  color: #2E7D32; }
-  &.score-medium   { border-color: rgba(230,81,0,0.3);   color: #E65100; }
-  &.score-high     { border-color: rgba(198,40,40,0.3);  color: #C62828; }
-  &.score-critical { border-color: rgba(183,28,28,0.4);  color: #B71C1C; }
+  &.score-low      { background: #E8F5E9; border-color: #A5C8A7; color: #2E7D32; }
+  &.score-medium   { background: #FFF3E0; border-color: #FFCC80; color: #E65100; }
+  &.score-high     { background: #FDECEA; border-color: #F5A8A8; color: #C62828; }
+  &.score-critical { background: #FCE4EC; border-color: #F48FB1; color: #B71C1C; }
 
-  &.cold-ideal   { border-color: rgba(21,101,192,0.3); color: #1565C0; }
-  &.cold-ok      { border-color: rgba(21,101,192,0.2); color: #1976D2; }
-  &.cold-pending { border-color: rgba(27,42,28,0.12);  color: rgba(27,42,28,0.45); }
+  &.cold-ideal   { background: #E3EEF9; border-color: #9BBCDE; color: #1565C0; }
+  &.cold-ok      { background: #E3EEF9; border-color: #B0C8E6; color: #1976D2; }
+  &.cold-pending { background: #EEF5EB; border-color: #B0C4AB; color: rgba(27,42,28,0.6); }
 }
 
 // ── Charts ────────────────────────────────────────────────────────────────────
