@@ -250,10 +250,10 @@
   border-radius: 12px;
   padding: 16px;
   border-left: 4px solid transparent;
-  background: #fff;
-  border: 1px solid rgba(46, 125, 50, 0.1);
+  background: #E5EEE2;
+  border: 1px solid rgba(46, 125, 50, 0.18);
   border-left: 4px solid transparent;
-  box-shadow: 0 1px 6px rgba(46, 125, 50, 0.06);
+  box-shadow: 0 1px 6px rgba(46, 125, 50, 0.08);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
@@ -356,9 +356,9 @@
   grid-template-rows: auto auto auto;
   gap: 4px 12px;
   padding: 10px 14px;
-  background: rgba(27, 42, 28, 0.02);
+  background: #E5EEE2;
   border-radius: 8px;
-  border-left: 3px solid rgba(27, 42, 28, 0.1);
+  border-left: 3px solid rgba(27, 42, 28, 0.25);
   transition: opacity 0.3s;
 
   .severity-chip {
@@ -375,11 +375,11 @@
     align-items: baseline;
     gap: 8px;
     strong { font-size: 0.88rem; color: #1B2A1C; }
-    small  { font-size: 0.75rem; color: rgba(27,42,28,0.45); }
+    small  { font-size: 0.75rem; color: rgba(27,42,28,0.6); }
   }
   .alert-message {
     font-size: 0.82rem;
-    color: rgba(27, 42, 28, 0.65);
+    color: rgba(27, 42, 28, 0.82);
     margin: 0;
     grid-column: 2;
   }
@@ -403,8 +403,8 @@
   }
 
   &.alert-resolved {
-    opacity: 0.65;
+    opacity: 0.85;
     border-left-color: #66BB6A;
-    background: rgba(46, 125, 50, 0.03);
+    background: rgba(46, 125, 50, 0.08);
   }
 }

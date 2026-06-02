@@ -15,7 +15,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
   styles: [`
     .app-content {
       min-height: calc(100vh - 64px);
-      background-color: #E8F0E5;
+      background-color: #C4D4BE;
     }
   `],
 })
